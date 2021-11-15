@@ -1,9 +1,8 @@
 package tool
 
 import (
-	"fmt"
 	"time"
-	"github.com/artonge/go-gtfs"
+	"github.com/takoyaki-3/go-gtfs"
 )
 
 func ExtractByDate(g *gtfs.GTFS, date time.Time)*gtfs.GTFS{
