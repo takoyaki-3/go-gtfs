@@ -2,6 +2,8 @@ package triptimetable
 
 import (
 	"sort"
+	"strconv"
+
 	"github.com/takoyaki-3/go-gtfs"
 	"github.com/takoyaki-3/go-gtfs/edge_timetable"
 )
@@ -46,7 +48,12 @@ func GetTripTimetables(g gtfs.GTFS)(tripTimetables []TripTimetable){
 
 	for tripId,stopTimes := range trips{
 		sort.Slice(trips[tripId],func(i, j int) bool {
-			return trips[tripId][i].Departure < trips[tripId][j].Departure
+			is,_ := strconv.Atoi(trips[tripId][i].StopSeq)
+			js,_ := strconv.Atoi(trips[tripId][j].StopSeq)
+			if is == js {
+				return trips[tripId][i].Departure < trips[tripId][j].Departure
+			}
+			return is < js
 		})
 		tripTimetables = append(tripTimetables,TripTimetable{
 			Properties: Properties[tripId],
