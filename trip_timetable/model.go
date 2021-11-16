@@ -3,7 +3,7 @@ package triptimetable
 import (
 	"sort"
 	"github.com/takoyaki-3/go-gtfs"
-	"github.com/takoyaki-3/go-gtfs/edgetimetable"
+	"github.com/takoyaki-3/go-gtfs/edge_timetable"
 )
 
 type TripTimetable struct {	
