@@ -7,6 +7,7 @@ import (
 )
 
 func GTFS2TimeTableEdges(g *gtfs.GTFS)(et *EdgeTimetable){
+	et = &EdgeTimetable{}
 
 	trips := map[string][]gtfs.StopTime{}
 
