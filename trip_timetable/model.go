@@ -13,7 +13,7 @@ type TripTimetable struct {
 	Properties edgetimetable.TimetableEdgeProperty
 }
 
-func GetTripTimetables(g gtfs.GTFS)(tripTimetables []TripTimetable){
+func GetTripTimetables(g *gtfs.GTFS)(tripTimetables []TripTimetable){
 
 	trips := map[string][]gtfs.StopTime{}
 
