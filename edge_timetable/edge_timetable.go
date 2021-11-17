@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"path"
 
-	. "github.com/takoyaki-3/go-gtfs"
 	csvtag "github.com/artonge/go-csv-tag/v2"
 )
 
