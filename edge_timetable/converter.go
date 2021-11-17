@@ -63,7 +63,7 @@ func GTFS2TimeTableEdges(g *GTFS)(et *EdgeTimetable){
 	return et
 }
 
-func Dump(edgeTimetable *EdgeTimetable, dirPath string, filter map[string]bool) error {
+func DumpEdgeTimetable(edgeTimetable *EdgeTimetable, dirPath string, filter map[string]bool) error {
 
 	files := map[string]interface{}{
 		"ptedges.csv":        edgeTimetable.Edges,
