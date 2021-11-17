@@ -6,7 +6,7 @@ import (
 	"github.com/takoyaki-3/go-gtfs"
 )
 
-func GTFS2TimeTableEdges(g gtfs.GTFS)(et EdgeTimetable){
+func GTFS2TimeTableEdges(g *gtfs.GTFS)(et *EdgeTimetable){
 
 	trips := map[string][]gtfs.StopTime{}
 
