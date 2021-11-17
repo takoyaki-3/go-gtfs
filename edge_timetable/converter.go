@@ -17,7 +17,7 @@ func GTFS2TimeTableEdges(g *gtfs.GTFS)(et *EdgeTimetable){
 		sort.Slice(trips[tripId],func(i, j int) bool {
 			return trips[tripId][i].Departure < trips[tripId][j].Departure
 		})
-		for i:=0;i<len(trips[tripId]);i++{
+		for i:=1;i<len(trips[tripId]);i++{
 			et.Edges = append(et.Edges, TimetableEdge{
 				TripId: tripId,
 				DepartureTime: trips[tripId][i-1].Departure,
