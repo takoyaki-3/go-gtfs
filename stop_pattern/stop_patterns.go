@@ -26,9 +26,8 @@ func GetRoutePatterns(g *GTFS)(patterns []RoutePattern){
 		routePatterns[stopPattern] = append(routePatterns[stopPattern], trip)
 	}
 
-	routes := []RoutePattern{}
 	for _,trip:=range routePatterns {
-		routes = append(routes, RoutePattern{
+		patterns = append(patterns, RoutePattern{
 			Trips: trip,
 		})
 	}
