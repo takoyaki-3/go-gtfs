@@ -1,12 +1,13 @@
 package edgetimetable
 
 import (
-
+	. "github.com/takoyaki-3/go-gtfs"
 )
 
 type EdgeTimetable struct {
 	Edges []TimetableEdge
 	Properties []TimetableEdgeProperty
+	Stops []Stop
 }
 
 type TimetableEdge struct {

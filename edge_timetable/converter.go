@@ -26,7 +26,8 @@ func GTFS2TimeTableEdges(g *gtfs.GTFS)(et *EdgeTimetable){
 				FromStop: trips[tripId][i-1].Departure,
 				ToStop: trips[tripId][i].Arrival,
 				StopHeadSign: trips[tripId][i-1].StopHeadSign,
-				// PickupType: trips[tripId][i-1].,
+				PickupType: trips[tripId][i-1].PickupType,
+				DropOffType: trips[tripId][i].DropOffType,
 			})
 		}
 	}
