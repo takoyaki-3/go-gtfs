@@ -18,7 +18,7 @@ type TimetableEdge struct {
 	ArrivalTime string `csv:"arrival_time"`
 	PickupType int `csv:"pickup_type"`
 	DropOffType int `csv:"drop_off_type"`
-	StopHeadSign string `csv:stop_head_sign`
+	StopHeadSign string `csv:"stop_head_sign"`
 }
 
 type TimetableEdgeProperty struct {
