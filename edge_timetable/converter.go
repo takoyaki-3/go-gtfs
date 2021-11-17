@@ -3,13 +3,13 @@ package edgetimetable
 import (
 	"sort"
 
-	"github.com/takoyaki-3/go-gtfs"
+	. "github.com/takoyaki-3/go-gtfs"
 )
 
-func GTFS2TimeTableEdges(g *gtfs.GTFS)(et *EdgeTimetable){
+func GTFS2TimeTableEdges(g *GTFS)(et *EdgeTimetable){
 	et = &EdgeTimetable{}
 
-	trips := map[string][]gtfs.StopTime{}
+	trips := map[string][]StopTime{}
 
 	for _,stopTime := range g.StopsTimes{
 		trips[stopTime.TripID] = append(trips[stopTime.TripID], stopTime)
@@ -31,7 +31,7 @@ func GTFS2TimeTableEdges(g *gtfs.GTFS)(et *EdgeTimetable){
 			})
 		}
 	}
-	routes := map[string]gtfs.Route{}
+	routes := map[string]Route{}
 	for _,route := range g.Routes{
 		routes[route.ID] = route
 	}
