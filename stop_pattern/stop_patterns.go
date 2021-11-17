@@ -1,4 +1,4 @@
-package tripgroup
+package stoppattern
 
 import (
 	. "github.com/takoyaki-3/go-gtfs"
