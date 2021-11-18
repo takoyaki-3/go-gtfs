@@ -12,8 +12,8 @@ type EdgeTimetable struct {
 
 type TimetableEdge struct {
 	TripId string `csv:"trip_id"`
-	FromStop string `csv:"from_stop"`
-	ToStop string `csv:"to_stop"`
+	FromStop string `csv:"from_stop_id"`
+	ToStop string `csv:"to_stop_id"`
 	DepartureTime string `csv:"departure_time"`
 	ArrivalTime string `csv:"arrival_time"`
 	PickupType int `csv:"pickup_type"`
