@@ -59,8 +59,8 @@ type StopTime struct {
 	Shape        int 		 `csv:"shape_dist_traveled"`
 	Departure    string  `csv:"departure_time"`
 	Arrival      string  `csv:"arrival_time"`
-	PickupType   int  	 `csv:"pickup_time"`
-	DropOffType  int  	 `csv:"drop_off_time"`
+	PickupType   int  	 `csv:"pickup_type"`
+	DropOffType  int  	 `csv:"drop_off_type"`
 }
 
 // Calendar -
