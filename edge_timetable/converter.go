@@ -59,6 +59,7 @@ func GTFS2TimeTableEdges(g *GTFS)(et *EdgeTimetable){
 			TextColor: route.TextColor,
 		})
 	}
+	et.Stops = g.Stops
 
 	return et
 }
