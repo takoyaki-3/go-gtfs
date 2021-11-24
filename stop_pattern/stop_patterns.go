@@ -1,6 +1,8 @@
 package stoppattern
 
 import (
+	"sort"
+
 	. "github.com/takoyaki-3/go-gtfs"
 	. "github.com/takoyaki-3/go-gtfs/trip_timetable"
 )
@@ -27,6 +29,9 @@ func GetRoutePatterns(g *GTFS)(patterns []RoutePattern){
 	}
 
 	for _,trip:=range routePatterns {
+		sort.Slice(trip,func(i, j int) bool {
+			return trip[i].StopTimes[0].Departure < trip[j].StopTimes[0].Departure
+		})
 		patterns = append(patterns, RoutePattern{
 			Trips: trip,
 		})
