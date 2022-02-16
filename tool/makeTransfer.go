@@ -45,7 +45,7 @@ func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road
 						Lat: stopJ.Latitude,
 						Lon: stopJ.Longitude,
 					})
-					if dis <= connectRange && len(road.LatLons) == 0 {
+					if dis <= connectRange && len(road.LatLons) != 0 {
 						// 道のりも計算
 						route := search.Search(road, search.Query{
 							From: h3.Find(road, h3index, goraph.LatLon{
