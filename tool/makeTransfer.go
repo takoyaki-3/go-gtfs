@@ -8,6 +8,7 @@ import (
 	"github.com/takoyaki-3/goraph/geometry"
 	"github.com/takoyaki-3/goraph/geometry/h3"
 	"github.com/takoyaki-3/goraph/search"
+	"github.com/takoyaki-3/goraph/loader/osm"
 )
 
 // connectRange: 接続する停留所間の最大距離
@@ -86,4 +87,11 @@ func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road
 			})
 		}
 	}
+}
+
+func MakeTransferWithOSM(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, osmFileName string, numThread int) {
+
+	// 地図データ読み込み
+	road := osm.Load(osmFileName)
+	MakeTransfer(g,connectRange,walkingSpeed,road,numThread)
 }
