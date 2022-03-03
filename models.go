@@ -1,5 +1,10 @@
 package gtfs
 
+import (
+	"sort"
+	"strconv"
+)
+
 // GTFS -
 type GTFS struct {
 	Path          string // The path to the containing directory
@@ -101,4 +106,43 @@ type Agency struct {
 	Timezone string `csv:"agency_timezone"`
 	Langue   string `csv:"agency_lang"`
 	Phone    string `csv:"agency_phone"`
+}
+
+func (g *GTFS)Sort(){
+	sort.Slice(g.Agencies,func(i, j int) bool {
+		return g.Agencies[i].ID < g.Agencies[j].ID
+	})
+	sort.Slice(g.CalendarDates,func(i, j int) bool {
+		iv := g.CalendarDates[i]
+		jv := g.CalendarDates[j]
+		iStr := iv.Date + ":" + iv.ServiceID + ":" + strconv.Itoa(iv.ExceptionType)
+		jStr := jv.Date + ":" + jv.ServiceID + ":" + strconv.Itoa(jv.ExceptionType)
+		return iStr < jStr
+	})
+	sort.Slice(g.Calendars,func(i, j int) bool {
+		return g.Calendars[i].ServiceID < g.Calendars[j].ServiceID
+	})
+	sort.Slice(g.Routes,func(i, j int) bool {
+		return g.Routes[i].ID < g.Routes[j].ID
+	})
+	sort.Slice(g.Stops,func(i, j int) bool {
+		return g.Stops[i].ID < g.Stops[j].ID
+	})
+	sort.Slice(g.StopsTimes,func(i, j int) bool {
+		iv := g.StopsTimes[i]
+		jv := g.StopsTimes[j]
+		iStr := iv.StopID + ":" + iv.TripID + ":" + iv.Departure
+		jStr := jv.StopID + ":" + jv.TripID + ":" + jv.Departure
+		return iStr < jStr
+	})
+	sort.Slice(g.Transfers,func(i, j int) bool {
+		iv := g.Transfers[i]
+		jv := g.Transfers[j]
+		iStr := iv.FromStopID + iv.ToStopID + strconv.Itoa(iv.Type)
+		jStr := jv.FromStopID + jv.ToStopID + strconv.Itoa(jv.Type)
+		return iStr < jStr
+	})
+	sort.Slice(g.Trips,func(i, j int) bool {
+		return g.Trips[i].ID < g.Trips[j].ID
+	})
 }
