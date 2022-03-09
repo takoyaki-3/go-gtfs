@@ -1,7 +1,6 @@
 package tool
 
 import (
-	// "log"
 	"sync"
 
 	"github.com/takoyaki-3/go-gtfs"
@@ -60,7 +59,7 @@ func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road
 						}
 						dis = route.Cost
 					}
-					if dis <= connectRange || stopI.Parent == stopJ.Parent {
+					if dis <= connectRange || (stopI.Parent == stopJ.Parent && stopI.Parent != ""){
 						diss[rank] = append(diss[rank], Dis{
 							fromId: stopI.ID,
 							toId:   stopJ.ID,
