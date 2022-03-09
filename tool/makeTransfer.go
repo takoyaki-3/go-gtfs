@@ -1,24 +1,21 @@
 package tool
 
 import (
+	// "log"
 	"sync"
 
 	"github.com/takoyaki-3/go-gtfs"
-	"github.com/takoyaki-3/goraph"
-	"github.com/takoyaki-3/goraph/geometry"
-	"github.com/takoyaki-3/goraph/geometry/h3"
-	"github.com/takoyaki-3/goraph/search"
-	"github.com/takoyaki-3/goraph/loader/osm"
+	gm "github.com/takoyaki-3/go-map"
 )
 
 // connectRange: 接続する停留所間の最大距離
 // walkingSpeed: 歩行速度（分速メートル）
 // road:				 地図データのグラフ
 // numThread:    使用するスレッド数
-func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road goraph.Graph, numThread int) {
+func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road *gm.Graph, numThread int) error {
 
 	// 地図データ読み込み
-	h3index := h3.MakeH3Index(road, 9)
+	h3index := road.MakeH3Index(9)
 
 	wg := sync.WaitGroup{}
 	wg.Add(numThread)
@@ -39,25 +36,28 @@ func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road
 					if i <= j {
 						continue
 					}
-					dis := geometry.HubenyDistance(goraph.LatLon{
+					dis := gm.HubenyDistance(gm.Node{
 						Lat: stopI.Latitude,
 						Lon: stopI.Longitude,
-					}, goraph.LatLon{
+					}, gm.Node{
 						Lat: stopJ.Latitude,
 						Lon: stopJ.Longitude,
 					})
-					if dis <= connectRange && len(road.LatLons) != 0 {
+					if dis <= connectRange && len(road.Nodes) != 0 {
 						// 道のりも計算
-						route := search.Search(road, search.Query{
-							From: h3.Find(road, h3index, goraph.LatLon{
+						route,err := road.Routing(gm.Query{
+							From: road.FindNode(h3index, gm.Node{
 								Lat: stopI.Latitude,
 								Lon: stopI.Longitude,
 							}, 9),
-							To: h3.Find(road, h3index, goraph.LatLon{
+							To: road.FindNode(h3index, gm.Node{
 								Lat: stopJ.Latitude,
 								Lon: stopJ.Longitude,
 							}, 9),
 						})
+						if err != nil {
+							continue
+						}
 						dis = route.Cost
 					}
 					if dis <= connectRange || stopI.Parent == stopJ.Parent {
@@ -87,11 +87,16 @@ func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road
 			})
 		}
 	}
+	return nil
 }
 
-func MakeTransferWithOSM(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, osmFileName string, numThread int) {
+func MakeTransferWithOSM(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, osmFileName string, numThread int) error {
 
 	// 地図データ読み込み
-	road := osm.Load(osmFileName)
+	road,err := gm.LoadOSM(osmFileName)
+	if err != nil {
+		return err
+	}
 	MakeTransfer(g,connectRange,walkingSpeed,road,numThread)
+	return nil
 }
