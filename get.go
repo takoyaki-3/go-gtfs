@@ -17,3 +17,12 @@ func (g *GTFS)GetTrip(tripId string)Trip{
 	}
 	return Trip{}
 }
+
+func (g *GTFS)GetStop(stopID string)Stop{
+	for _,s:=range g.Stops{
+		if s.ID == stopID{
+			return s
+		}
+	}
+	return Stop{}
+}
