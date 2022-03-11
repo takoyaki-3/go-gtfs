@@ -1,7 +1,7 @@
 package gtfs
 
-func (g *GTFS)GetRoute(routeId string)Route{
-	for _,r := range g.Routes{
+func (g *GTFS) GetRoute(routeId string) Route {
+	for _, r := range g.Routes {
 		if r.ID == routeId {
 			return r
 		}
@@ -9,8 +9,8 @@ func (g *GTFS)GetRoute(routeId string)Route{
 	return Route{}
 }
 
-func (g *GTFS)GetTrip(tripId string)Trip{
-	for _,t:=range g.Trips{
+func (g *GTFS) GetTrip(tripId string) Trip {
+	for _, t := range g.Trips {
 		if t.ID == tripId {
 			return t
 		}
@@ -18,9 +18,9 @@ func (g *GTFS)GetTrip(tripId string)Trip{
 	return Trip{}
 }
 
-func (g *GTFS)GetStop(stopID string)Stop{
-	for _,s:=range g.Stops{
-		if s.ID == stopID{
+func (g *GTFS) GetStop(stopID string) Stop {
+	for _, s := range g.Stops {
+		if s.ID == stopID {
 			return s
 		}
 	}

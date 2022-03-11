@@ -44,7 +44,7 @@ func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road
 					})
 					if dis <= connectRange && len(road.Nodes) != 0 {
 						// 道のりも計算
-						route,err := road.Routing(gm.Query{
+						route, err := road.Routing(gm.Query{
 							From: road.FindNode(h3index, gm.Node{
 								Lat: stopI.Latitude,
 								Lon: stopI.Longitude,
@@ -59,7 +59,7 @@ func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road
 						}
 						dis = route.Cost
 					}
-					if dis <= connectRange || (stopI.Parent == stopJ.Parent && stopI.Parent != ""){
+					if dis <= connectRange || (stopI.Parent == stopJ.Parent && stopI.Parent != "") {
 						diss[rank] = append(diss[rank], Dis{
 							fromId: stopI.ID,
 							toId:   stopJ.ID,
@@ -74,15 +74,15 @@ func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road
 		for _, v := range arr {
 			g.Transfers = append(g.Transfers, gtfs.Transfer{
 				FromStopID: v.fromId,
-				ToStopID: v.toId,
-				MinTime: int(v.dis * 60.0 / walkingSpeed),
-				Type: 0,
+				ToStopID:   v.toId,
+				MinTime:    int(v.dis * 60.0 / walkingSpeed),
+				Type:       0,
 			})
 			g.Transfers = append(g.Transfers, gtfs.Transfer{
 				FromStopID: v.toId,
-				ToStopID: v.fromId,
-				MinTime: int(v.dis * 60.0 / walkingSpeed),
-				Type: 0,
+				ToStopID:   v.fromId,
+				MinTime:    int(v.dis * 60.0 / walkingSpeed),
+				Type:       0,
 			})
 		}
 	}
@@ -92,10 +92,10 @@ func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road
 func MakeTransferWithOSM(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, osmFileName string, numThread int) error {
 
 	// 地図データ読み込み
-	road,err := gm.LoadOSM(osmFileName)
+	road, err := gm.LoadOSM(osmFileName)
 	if err != nil {
 		return err
 	}
-	MakeTransfer(g,connectRange,walkingSpeed,road,numThread)
+	MakeTransfer(g, connectRange, walkingSpeed, road, numThread)
 	return nil
 }
