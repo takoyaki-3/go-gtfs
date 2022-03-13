@@ -7,16 +7,18 @@ import (
 
 // GTFS -
 type GTFS struct {
-	Path          string         `json:"path"` // The path to the containing directory
-	Agency        Agency         `json:"agency"`
-	Agencies      []Agency       `json:"agencies"`
-	Routes        []Route        `json:"routes"`
-	Stops         []Stop         `json:"stops"`
-	StopsTimes    []StopTime     `json:"stop_times"`
-	Trips         []Trip         `json:"trips"`
-	Calendars     []Calendar     `json:"calendars"`
-	CalendarDates []CalendarDate `json:"calendar_dates"`
-	Transfers     []Transfer     `json:"transfer"`
+	Path           string          `json:"path"` // The path to the containing directory
+	Agency         Agency          `json:"agency"`
+	Agencies       []Agency        `json:"agencies"`
+	Routes         []Route         `json:"routes"`
+	Stops          []Stop          `json:"stops"`
+	StopsTimes     []StopTime      `json:"stop_times"`
+	Trips          []Trip          `json:"trips"`
+	Calendars      []Calendar      `json:"calendars"`
+	CalendarDates  []CalendarDate  `json:"calendar_dates"`
+	Transfers      []Transfer      `json:"transfer"`
+	FareAttributes []FareAttribute `json:"fare_attributes"`
+	FareRules      []FareRule      `json:"fare_rules"`
 }
 
 // Route -
@@ -106,6 +108,26 @@ type Agency struct {
 	Timezone string `csv:"agency_timezone" json:"agency_timezone"`
 	Langue   string `csv:"agency_lang" json:"agency_lang"`
 	Phone    string `csv:"agency_phone" json:"agency_phone"`
+}
+
+// FareAttribute -
+type FareAttribute struct {
+	FareId           string  `csv:"fare_id"`
+	Price            float64 `csv:"price"`
+	CurrentType      string  `csv:"currency_type"`
+	PaymentMethod    int     `csv:"payment_method"`
+	Transfers        int     `csv:"transfer"`
+	AgencyId         string  `csv:"agency_id"`
+	TransferDuration string  `csv:"transfer_duration"`
+}
+
+// FareRule -
+type FareRule struct {
+	FareId        string `csv:"fare_id"`
+	RouteId       string `csv:"route_id"`
+	OriginId      string `csv:"origin_id"`
+	DestinationId string `csv:"destination_id"`
+	ContainsId    string `csv:"contains_id"`
 }
 
 func (g *GTFS) Sort() {

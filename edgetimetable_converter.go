@@ -8,7 +8,7 @@ import (
 	csvtag "github.com/takoyaki-3/go-csv-tag/v3"
 )
 
-func (g *GTFS)GTFS2TimeTableEdges() (et *EdgeTimetable) {
+func (g *GTFS) GTFS2TimeTableEdges() (et *EdgeTimetable) {
 	et = &EdgeTimetable{}
 
 	trips := map[string][]StopTime{}

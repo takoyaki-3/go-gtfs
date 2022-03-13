@@ -5,7 +5,7 @@ import (
 )
 
 // 対象日のGTFSのみに絞り込む
-func (g *GTFS)ExtractByDate(date time.Time) *GTFS {
+func (g *GTFS) ExtractByDate(date time.Time) *GTFS {
 
 	theDayServices := map[string]bool{}
 

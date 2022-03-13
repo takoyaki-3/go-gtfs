@@ -12,7 +12,7 @@ type RoutePattern struct {
 	// RouteId string
 }
 
-func (g *GTFS)GetRoutePatterns()(patterns []RoutePattern) {
+func (g *GTFS) GetRoutePatterns() (patterns []RoutePattern) {
 
 	tripTimetables := GetTripTimetables(g)
 

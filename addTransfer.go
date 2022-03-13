@@ -10,7 +10,7 @@ import (
 // walkingSpeed: 歩行速度（分速メートル）
 // road:				 地図データのグラフ
 // numThread:    使用するスレッド数
-func (g *GTFS)AddTransfer(connectRange float64, walkingSpeed float64, road *gm.Graph, numThread int) error {
+func (g *GTFS) AddTransfer(connectRange float64, walkingSpeed float64, road *gm.Graph, numThread int) error {
 
 	// 地図データ読み込み
 	h3index := road.MakeH3Index(9)
@@ -88,7 +88,7 @@ func (g *GTFS)AddTransfer(connectRange float64, walkingSpeed float64, road *gm.G
 	return nil
 }
 
-func (g *GTFS)AddTransferWithOSM(connectRange float64, walkingSpeed float64, osmFileName string, numThread int) error {
+func (g *GTFS) AddTransferWithOSM(connectRange float64, walkingSpeed float64, osmFileName string, numThread int) error {
 
 	// 地図データ読み込み
 	road, err := gm.LoadOSM(osmFileName)

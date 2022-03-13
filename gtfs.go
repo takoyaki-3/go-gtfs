@@ -69,14 +69,16 @@ func LoadSplitted(dirPath string, filter map[string]bool) ([]*GTFS, error) {
 func loadGTFS(g *GTFS, filter map[string]bool) error {
 	// List all files that will be loaded and there dest
 	filesToLoad := map[string]interface{}{
-		"agency.txt":         &g.Agencies,
-		"calendar.txt":       &g.Calendars,
-		"calendar_dates.txt": &g.CalendarDates,
-		"routes.txt":         &g.Routes,
-		"stops.txt":          &g.Stops,
-		"stop_times.txt":     &g.StopsTimes,
-		"transfers.txt":      &g.Transfers,
-		"trips.txt":          &g.Trips,
+		"agency.txt":          &g.Agencies,
+		"calendar.txt":        &g.Calendars,
+		"calendar_dates.txt":  &g.CalendarDates,
+		"routes.txt":          &g.Routes,
+		"stops.txt":           &g.Stops,
+		"stop_times.txt":      &g.StopsTimes,
+		"transfers.txt":       &g.Transfers,
+		"trips.txt":           &g.Trips,
+		"fare_attributes.txt": &g.FareAttributes,
+		"fare_rules.txt":      &g.FareRules,
 	}
 	// Load the files
 	for file, dest := range filesToLoad {
