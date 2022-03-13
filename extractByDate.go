@@ -1,11 +1,11 @@
-package tool
+package gtfs
 
 import (
-	"github.com/takoyaki-3/go-gtfs"
 	"time"
 )
 
-func ExtractByDate(g *gtfs.GTFS, date time.Time) *gtfs.GTFS {
+// 対象日のGTFSのみに絞り込む
+func (g *GTFS)ExtractByDate(date time.Time) *GTFS {
 
 	theDayServices := map[string]bool{}
 
@@ -39,12 +39,12 @@ func ExtractByDate(g *gtfs.GTFS, date time.Time) *gtfs.GTFS {
 		}
 	}
 
-	newG := gtfs.GTFS{}
+	newG := GTFS{}
 	newG = *g
-	newG.Trips = []gtfs.Trip{}
-	newG.CalendarDates = []gtfs.CalendarDate{}
-	newG.Calendars = []gtfs.Calendar{}
-	newG.StopsTimes = []gtfs.StopTime{}
+	newG.Trips = []Trip{}
+	newG.CalendarDates = []CalendarDate{}
+	newG.Calendars = []Calendar{}
+	newG.StopsTimes = []StopTime{}
 
 	trips := map[string]bool{}
 	for _, trip := range g.Trips {

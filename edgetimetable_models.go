@@ -1,8 +1,4 @@
-package edgetimetable
-
-import (
-	. "github.com/takoyaki-3/go-gtfs"
-)
+package gtfs
 
 type EdgeTimetable struct {
 	Edges      []TimetableEdge

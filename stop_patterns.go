@@ -1,33 +1,63 @@
-package triptimetable
+package gtfs
 
 import (
 	"sort"
 	"strconv"
-
-	"github.com/takoyaki-3/go-gtfs"
-	"github.com/takoyaki-3/go-gtfs/edge_timetable"
 )
 
-type TripTimetable struct {
-	StopTimes  []gtfs.StopTime
-	Properties edgetimetable.TimetableEdgeProperty
+type RoutePattern struct {
+	Trips []TripTimetable
+	// Stops []Stop
+	// Route Route
+	// RouteId string
 }
 
-func GetTripTimetables(g *gtfs.GTFS) (tripTimetables []TripTimetable) {
+func (g *GTFS)GetRoutePatterns()(patterns []RoutePattern) {
 
-	trips := map[string][]gtfs.StopTime{}
+	tripTimetables := GetTripTimetables(g)
+
+	routePatterns := map[string][]TripTimetable{}
+
+	for _, trip := range tripTimetables {
+		stopPattern := trip.Properties.RouteID
+		for _, stop := range trip.StopTimes {
+			stopPattern += ":" + stop.StopID
+		}
+		routePatterns[stopPattern] = append(routePatterns[stopPattern], trip)
+	}
+
+	for _, trip := range routePatterns {
+		sort.Slice(trip, func(i, j int) bool {
+			return trip[i].StopTimes[0].Departure < trip[j].StopTimes[0].Departure
+		})
+		patterns = append(patterns, RoutePattern{
+			Trips: trip,
+		})
+	}
+
+	return patterns
+}
+
+type TripTimetable struct {
+	StopTimes  []StopTime
+	Properties TimetableEdgeProperty
+}
+
+func GetTripTimetables(g *GTFS) (tripTimetables []TripTimetable) {
+
+	trips := map[string][]StopTime{}
 
 	for _, stopTime := range g.StopsTimes {
 		trips[stopTime.TripID] = append(trips[stopTime.TripID], stopTime)
 	}
-	routes := map[string]gtfs.Route{}
+	routes := map[string]Route{}
 	for _, route := range g.Routes {
 		routes[route.ID] = route
 	}
-	Properties := map[string]edgetimetable.TimetableEdgeProperty{}
+	Properties := map[string]TimetableEdgeProperty{}
 	for _, trip := range g.Trips {
 		route := routes[trip.RouteID]
-		Properties[trip.ID] = edgetimetable.TimetableEdgeProperty{
+		Properties[trip.ID] = TimetableEdgeProperty{
 			TripID:      trip.ID,
 			Name:        trip.Name,
 			RouteID:     trip.RouteID,

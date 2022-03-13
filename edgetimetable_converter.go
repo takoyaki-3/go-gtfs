@@ -1,4 +1,4 @@
-package edgetimetable
+package gtfs
 
 import (
 	"fmt"
@@ -6,11 +6,9 @@ import (
 	"sort"
 
 	csvtag "github.com/takoyaki-3/go-csv-tag/v3"
-
-	. "github.com/takoyaki-3/go-gtfs"
 )
 
-func GTFS2TimeTableEdges(g *GTFS) (et *EdgeTimetable) {
+func (g *GTFS)GTFS2TimeTableEdges() (et *EdgeTimetable) {
 	et = &EdgeTimetable{}
 
 	trips := map[string][]StopTime{}

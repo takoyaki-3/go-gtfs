@@ -35,6 +35,8 @@ github.com/takoyaki-3/go-json v0.0.0-20211221023225-18c8e7ac7ccb h1:+ho64ruBJraF
 github.com/takoyaki-3/go-json v0.0.0-20211221023225-18c8e7ac7ccb/go.mod h1:39fxS11XWIvygjbgeXg4bpyvAxLZ2lr1Cv+9DbbQ9Ew=
 github.com/takoyaki-3/go-map v0.0.15 h1:XKbYedhS2gWbQPPpLK6rBZ8Pej4oOmvd70DcLdHuu2M=
 github.com/takoyaki-3/go-map v0.0.15/go.mod h1:eLDBXZHnEyd7lExyZFwIckkMLU8B3i4wthtHWAoCeck=
+github.com/takoyaki-3/go-map/v2 v2.0.1 h1:i9gpRbLPLRArGbEaEp2/sHYGIjng4WR4c8qCEUsWTNY=
+github.com/takoyaki-3/go-map/v2 v2.0.1/go.mod h1:chZOdr+UIiC9l6AuTwoA/yuTlnSjpro8jnWT7qTScY4=
 github.com/uber/h3-go v3.0.1+incompatible h1:RVpBm8qd7mM94YuIhNQfCXpVj6mPY6gNsVstDg1FvjY=
 github.com/uber/h3-go v3.0.1+incompatible/go.mod h1:66a2M4rQlf+dtkTWj3bHoLFgDT/Rt4kLT8dMuEQVQvw=
 golang.org/x/sys v0.0.0-20190222072716-a9d3bda3a223/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=

@@ -1,17 +1,16 @@
-package tool
+package gtfs
 
 import (
 	"sync"
 
-	"github.com/takoyaki-3/go-gtfs"
-	gm "github.com/takoyaki-3/go-map"
+	gm "github.com/takoyaki-3/go-map/v2"
 )
 
 // connectRange: 接続する停留所間の最大距離
 // walkingSpeed: 歩行速度（分速メートル）
 // road:				 地図データのグラフ
 // numThread:    使用するスレッド数
-func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road *gm.Graph, numThread int) error {
+func (g *GTFS)AddTransfer(connectRange float64, walkingSpeed float64, road *gm.Graph, numThread int) error {
 
 	// 地図データ読み込み
 	h3index := road.MakeH3Index(9)
@@ -72,13 +71,13 @@ func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road
 	wg.Wait()
 	for _, arr := range diss {
 		for _, v := range arr {
-			g.Transfers = append(g.Transfers, gtfs.Transfer{
+			g.Transfers = append(g.Transfers, Transfer{
 				FromStopID: v.fromId,
 				ToStopID:   v.toId,
 				MinTime:    int(v.dis * 60.0 / walkingSpeed),
 				Type:       0,
 			})
-			g.Transfers = append(g.Transfers, gtfs.Transfer{
+			g.Transfers = append(g.Transfers, Transfer{
 				FromStopID: v.toId,
 				ToStopID:   v.fromId,
 				MinTime:    int(v.dis * 60.0 / walkingSpeed),
@@ -89,13 +88,13 @@ func MakeTransfer(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, road
 	return nil
 }
 
-func MakeTransferWithOSM(g *gtfs.GTFS, connectRange float64, walkingSpeed float64, osmFileName string, numThread int) error {
+func (g *GTFS)AddTransferWithOSM(connectRange float64, walkingSpeed float64, osmFileName string, numThread int) error {
 
 	// 地図データ読み込み
 	road, err := gm.LoadOSM(osmFileName)
 	if err != nil {
 		return err
 	}
-	MakeTransfer(g, connectRange, walkingSpeed, road, numThread)
+	g.AddTransfer(connectRange, walkingSpeed, road, numThread)
 	return nil
 }

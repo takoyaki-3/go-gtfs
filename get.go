@@ -26,3 +26,16 @@ func (g *GTFS) GetStop(stopID string) Stop {
 	}
 	return Stop{}
 }
+
+func (g *GTFS)GetHeadSign(tripId string, stopId string) string {
+	trip := g.GetTrip(tripId)
+	if trip.Headsign != "" {
+		return trip.Headsign
+	}
+	for _, stopTime := range g.StopsTimes {
+		if stopTime.TripID == tripId && stopTime.StopID == stopId {
+			return stopTime.StopHeadSign
+		}
+	}
+	return ""
+}
