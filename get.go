@@ -58,7 +58,7 @@ func (g *GTFS) GetFareAttributeFromOD(originId string, destinationId string, rou
 	for _, v := range g.FareRules {
 
 		// 条件に一致するか判定
-		isOriginOk := (originId == v.OriginId)
+		isOriginOk := (originId == v.OriginId) || ("*" == v.OriginId) || ("" == v.OriginId)
 		isDestinationOk := (destinationId == v.DestinationId) || ("*" == v.DestinationId) || ("" == v.DestinationId)
 		isRouteIdOk := (v.RouteId == routeId) || (v.RouteId == "*") || (v.RouteId == "")
 
