@@ -23,6 +23,9 @@ func Load(dirPath string, filter map[string]bool) (*GTFS, error) {
 	if os.IsNotExist(err) {
 		return nil, fmt.Errorf("Error loading GTFS: directory does not exist")
 	}
+	if len(dirPath) > 4 && dirPath[len(dirPath)-4:] == ".zip" {
+		return LoadFromUnzipGTFS(dirPath, filter)
+	}
 	g := &GTFS{Path: dirPath}
 	err = loadGTFS(g, filter)
 	if err != nil {
