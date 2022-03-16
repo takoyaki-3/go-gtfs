@@ -47,7 +47,7 @@ type Trip struct {
 
 // Stop -
 type Stop struct {
-	ID          string  `csv:"stop_id" json:"trip_id"`
+	ID          string  `csv:"stop_id" json:"stop_id"`
 	Code        string  `csv:"stop_code" json:"stop_code"`
 	Name        string  `csv:"stop_name" json:"stop_name"`
 	Description string  `csv:"stop_desc" json:"stop_desc"`
