@@ -76,3 +76,66 @@ func (g *GTFS) ExtractByDate(date time.Time) *GTFS {
 	}
 	return &newG
 }
+
+func ArrayIn(target string, array []string) bool {
+	for _,v:=range array {
+		if v == target {
+			return true
+		}
+	}
+	return false
+}
+
+// routeIDを基に絞り込む
+func (g *GTFS) ExtractByRouteIDs(ids []string) *GTFS {
+
+	newG := GTFS{}
+	newG = *g
+	newG.Trips = []Trip{}
+	newG.StopsTimes = []StopTime{}
+
+	trips := map[string]bool{}
+	for _, trip := range g.Trips {
+		if ArrayIn(trip.RouteID, ids) {
+			newG.Trips = append(newG.Trips, trip)
+			trips[trip.ID] = true
+		}
+	}
+	for _, stopTime := range g.StopsTimes {
+		if _, ok := trips[stopTime.TripID]; ok {
+			newG.StopsTimes = append(newG.StopsTimes, stopTime)
+		}
+	}
+	return &newG
+}
+
+// agencyIDを基に絞り込む
+func (g *GTFS) ExtractByAgencyID(ids []string) *GTFS {
+
+	newG := GTFS{}
+	newG = *g
+	newG.Trips = []Trip{}
+	newG.StopsTimes = []StopTime{}
+
+	routes := map[string]bool{}
+	for _, route := range g.Routes {
+		if ArrayIn(route.AgencyID, ids) {
+			routes[route.ID] = true
+		}
+	}
+
+	trips := map[string]bool{}
+	for _, trip := range g.Trips {
+		if _,ok:=routes[trip.RouteID];ok {
+			newG.Trips = append(newG.Trips, trip)
+			trips[trip.ID] = true
+		}
+	}
+	for _, stopTime := range g.StopsTimes {
+		if _, ok := trips[stopTime.TripID]; ok {
+			newG.StopsTimes = append(newG.StopsTimes, stopTime)
+		}
+	}
+
+	return &newG
+}
