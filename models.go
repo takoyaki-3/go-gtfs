@@ -130,6 +130,45 @@ type FareRule struct {
 	ContainsId    string `csv:"contains_id"`
 }
 
+type IndexMap struct {
+	StopID2Index 		map[string]int
+	TripID2Index 		map[string]int
+	RouteID2Index 	map[string]int
+	AgencyID2Index 	map[string]int
+	ServiceID2Index map[string]int
+	FareID2Index 		map[string]int
+}
+
+func (g *GTFS)InitIndexMap()*IndexMap{
+	im := IndexMap{
+		StopID2Index:			map[string]int{},
+		TripID2Index: 		map[string]int{},
+		RouteID2Index: 		map[string]int{},
+		AgencyID2Index: 	map[string]int{},
+		ServiceID2Index: 	map[string]int{},
+		FareID2Index: 		map[string]int{},
+	}
+	for i,v:=range g.Stops{
+		im.StopID2Index[v.ID]=i
+	}
+	for i,v:=range g.Trips{
+		im.TripID2Index[v.ID]=i
+	}
+	for i,v:=range g.Routes{
+		im.RouteID2Index[v.ID]=i
+	}
+	for i,v:=range g.Agencies{
+		im.AgencyID2Index[v.ID]=i
+	}
+	for i,v:=range g.Calendars{
+		im.ServiceID2Index[v.ServiceID]=i
+	}
+	for i,v:=range g.FareAttributes{
+		im.FareID2Index[v.FareId]=i
+	}
+	return &im
+}
+
 func (g *GTFS) Sort() {
 	sort.Slice(g.Agencies, func(i, j int) bool {
 		return g.Agencies[i].ID < g.Agencies[j].ID
